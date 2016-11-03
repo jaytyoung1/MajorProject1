@@ -22,7 +22,6 @@ public class HighScoreManager : MonoBehaviour
         //Debug.Log("final score: " + finalScore + "\ninitials: " + initialsEntered);
         if (isHighScoresUpdated(initialsEntered, finalScore))
         {
-            Debug.Log("isHighScoreUpdated = true");
             //displayHighScoresTextBox.gameObject.SetActive(true);
             displayScores();
         }

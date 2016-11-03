@@ -49,28 +49,27 @@ public class EnemyManager : MonoBehaviour
         if (transform.position.x > rightLimit)
         {
             direction = -1;
-            isFacingRight = false;
             flip();
         }
         else if (transform.position.x < leftLimit)
         {
             direction = 1;
-            isFacingRight = true;
             flip();
         }
         movement = Vector3.right * direction * enemySpeed * Time.deltaTime;
         transform.Translate(movement);
     }
 
-    //void OnCollisionEnter2D(Collision2D coll)
-    //{
-    //    if (coll.gameObject.CompareTag("Player"))
-    //    {
-    //        Debug.Log("collision");
-    //        anim.SetInteger("EnemyState", 2);
-    //        rb2d.velocity = new Vector2(0, 0);
-    //    }
-    //}
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("collision");
+            //transform.Translate(0, 0, 0);
+            foreach (Animator anim in enemyAnimators)
+                anim.SetInteger("EnemyState", 2);
+        }
+    }
 
     /*
        flip() flips the isFacingRight boolean, then negates the player's x transform

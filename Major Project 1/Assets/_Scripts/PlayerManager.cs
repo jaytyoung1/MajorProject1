@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
     [HideInInspector]
-    public bool isFacingRight = true;
+    public bool isFacingRight;
 
     [HideInInspector]
     public bool isJumping = false;
@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        isFacingRight = true;
         livesLeft = 3;
         //get Animator and RigidBody2D from Player
         anim = GetComponent<Animator>();
@@ -89,7 +90,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        Debug.Log("hearts left: " + livesLeft);
+        //Debug.Log("hearts left: " + livesLeft);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -234,7 +235,6 @@ public class PlayerManager : MonoBehaviour
         if (anim.GetInteger("State") == 2)
         {
             walkingAudio.Stop();
-            //Debug.Log("in playJumpAudio method, play audio next line");
             jumpAudio.Play();
         }
     }

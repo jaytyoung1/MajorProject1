@@ -16,8 +16,9 @@ public class EnemyManager : MonoBehaviour
 
     private float leftLimit = -1.9f;
     private float rightLimit = 1.9f;
-    public float speed = 1.5f;
-    private int direction = 1;
+    public float enemySpeed = 1.5f;
+    private int direction = -1;
+    private Vector3 movement;
 
     public Animator[] enemyAnimators;
     public Rigidbody2D[] enemyRigidBodys;
@@ -28,24 +29,11 @@ public class EnemyManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        //get Animator and RigidBody2D from Enemy
-        //anim = GetComponent<Animator>();
-        //rb2d = GetComponent<Rigidbody2D>();
+        enemyAnimators = GetComponentsInChildren<Animator>();
+        //enemyRigidBodys= GetComponentsInChildren<Rigidbody2D>();
 
-       
-        //anim.SetInteger("EnemyState", 1);
-
-        foreach (Animator anim in enemyAnimators)
-        {
-            //initial animation is idle, EnemyState 0
-            anim.SetInteger("EnemyState", 0);
-        }
-
-        foreach (Rigidbody2D rb2d in enemyRigidBodys)
-        {
-            //zero each enemy's velocity
-            rb2d.velocity = new Vector2(0, 0);
-        }
+        foreach (Animator anim in enemyAnimators)     
+            anim.SetInteger("EnemyState", 1);
     }
 	
     void FixedUpdate()
@@ -62,14 +50,16 @@ public class EnemyManager : MonoBehaviour
         {
             direction = -1;
             isFacingRight = false;
+            flip();
         }
         else if (transform.position.x < leftLimit)
         {
             direction = 1;
             isFacingRight = true;
+            flip();
         }
-        //rb2d.velocity = new Vector2(direction * speed, rb2d.velocity.y);
-
+        movement = Vector3.right * direction * enemySpeed * Time.deltaTime;
+        transform.Translate(movement);
     }
 
     //void OnCollisionEnter2D(Collision2D coll)
@@ -88,8 +78,11 @@ public class EnemyManager : MonoBehaviour
     void flip()
     {
         isFacingRight = !isFacingRight;
-        Vector3 playerScale = transform.localScale;
-        playerScale.x = playerScale.x * -1;
-        transform.localScale = playerScale;
+        foreach (Transform child in transform)
+        {
+            Vector3 enemyScale = child.localScale;
+            enemyScale.x = enemyScale.x * -1;
+            child.localScale = enemyScale;
+        }
     }
 }

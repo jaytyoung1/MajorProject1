@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
     public AudioSource coinAudio;
 
     public GameObject[] hearts;
-    public static int livesLeft;
+    public static int totalLives = 3;
 
     private float groundCheckRadius = 0.7f;
     private float delay = 1.0f;
@@ -45,7 +45,6 @@ public class PlayerManager : MonoBehaviour
     void Start ()
     {
         isFacingRight = true;
-        livesLeft = 3;
         //get Animator and RigidBody2D from Player
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -60,7 +59,7 @@ public class PlayerManager : MonoBehaviour
         rb2d.velocity = new Vector2(0, 0);
 
         PlayerPrefs.SetInt("Coins", 0);
-
+        //PlayerPrefs.SetInt("Lives", 3);
         //updateLives(livesLeft);
     }
 
@@ -108,26 +107,34 @@ public class PlayerManager : MonoBehaviour
             PlayerPrefs.SetInt("Time", 0);
             PlayerPrefs.DeleteKey("totalScore");
             PlayerPrefs.DeleteKey("InitialsEntered");
+            PlayerPrefs.DeleteKey("Lives");
             SceneManager.LoadScene("WelcomeScene");
         }
     }
 
     void updateLives(int lives)
     {
+        int decLives = lives;
         switch (lives)
         {
             case 3:
                 hearts[lives - 1].gameObject.SetActive(false);
+                decLives = lives - 1;
+                PlayerPrefs.SetInt("Lives", decLives);
                 Invoke("restartScene", delay);
-                livesLeft--;
+                //livesLeft--;
                 break;
             case 2:
-                hearts[lives - 1].gameObject.SetActive(false);
+                decLives = lives - 1;
+                PlayerPrefs.SetInt("Lives", decLives);
                 Invoke("restartScene", delay);
-                livesLeft--;
+                //livesLeft--;
                 break;
             case 1:
-
+                hearts[lives - 1].gameObject.SetActive(false);
+                decLives = lives - 1;
+                PlayerPrefs.SetInt("Lives", decLives);
+                Invoke("goToFinalScoreScene", delay);
                 break;
         }
     }
@@ -135,9 +142,7 @@ public class PlayerManager : MonoBehaviour
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.CompareTag("Coin"))
-        {
             coinAudio.Play();
-        }
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -156,13 +161,20 @@ public class PlayerManager : MonoBehaviour
             rb2d.velocity = new Vector2(0, 0);
             anim.SetInteger("State", 3);
             playDieAudio();
-            if (livesLeft > 0)
+            int livesLeft = PlayerPrefs.GetInt("Lives");
+            if (livesLeft > 1)
             {
                 //lives[livesLeft - 1].gameObject.SetActive(false);
                 //Destroy(lives[livesLeft - 1]);
                 //Invoke("restartScene", delay);
                 //livesLeft--;
                 updateLives(livesLeft);
+                //Invoke("restartScene", delay);
+            }
+            else if (livesLeft == 1)
+            {
+                updateLives(livesLeft);
+                //Invoke("goToFinalScoreScene", delay);
             }
         }
     }

@@ -9,10 +9,13 @@ public class EnemyManager : MonoBehaviour
     [HideInInspector]
     public bool isGrounded = false;
 
+    [HideInInspector]
+    public bool attacking = false;
+
     //public LayerMask groundLayers;
     //public GameObject enemyGroundCheck;
 
-    private float groundCheckRadius = 0.73f;
+    //private float groundCheckRadius = 0.73f;
 
     private float leftLimit = -1.9f;
     private float rightLimit = 1.9f;
@@ -38,6 +41,12 @@ public class EnemyManager : MonoBehaviour
 	
     void FixedUpdate()
     {
+        if (attacking)
+        {
+            Debug.Log("Attacking");
+            foreach (Animator anim in enemyAnimators)
+                anim.SetInteger("EnemyState", 2);
+        }
         //isGrounded = Physics2D.OverlapCircle(enemyGroundCheck.transform.position, groundCheckRadius, groundLayers);
         //if (isGrounded)
         //    anim.SetInteger("EnemyState", 1);
@@ -48,29 +57,39 @@ public class EnemyManager : MonoBehaviour
     {
         if (transform.position.x > rightLimit)
         {
-            direction = -1;
             flip();
+            direction = -1;
         }
         else if (transform.position.x < leftLimit)
         {
-            direction = 1;
             flip();
+            direction = 1;
         }
         movement = Vector3.right * direction * enemySpeed * Time.deltaTime;
-        transform.Translate(movement);
+        if (!attacking)
+            transform.Translate(movement);
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    //void OnCollisionEnter2D(Collision2D coll)
+    //{
+    //    if (coll.gameObject.CompareTag("Player"))
+    //    {
+    //        attacking = true;
+    //        //transform.Translate(0, 0, 0);
+    //        //foreach (Animator anim in enemyAnimators)
+    //        //    anim.SetInteger("EnemyState", 2);
+    //    }
+    //}
+
+    public void attack()
     {
-        if (coll.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("collision");
-            //transform.Translate(0, 0, 0);
-            foreach (Animator anim in enemyAnimators)
-                anim.SetInteger("EnemyState", 2);
-        }
+        Debug.Log("attacking");
+        attacking = true;
+        foreach (Animator anim in enemyAnimators)
+            anim.SetInteger("EnemyState", 2);
+        foreach (Rigidbody2D rb2d in enemyRigidBodys)
+            rb2d.velocity = new Vector2(0, 0);
     }
-
     /*
        flip() flips the isFacingRight boolean, then negates the player's x transform
    */

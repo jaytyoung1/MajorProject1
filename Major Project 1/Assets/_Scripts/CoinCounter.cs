@@ -7,10 +7,11 @@ public class CoinCounter : MonoBehaviour
 {
     public Text scoreTextBox;
     private static int coinCount;
+
     //public AudioSource coinAudio;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         coinCount = 0;
         //PlayerPrefs.DeleteAll();

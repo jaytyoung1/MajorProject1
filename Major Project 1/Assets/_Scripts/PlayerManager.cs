@@ -24,11 +24,12 @@ public class PlayerManager : MonoBehaviour
 
     public LayerMask groundLayers;
     public GameObject groundCheck;
-    public EdgeCollider2D leftColl;
-    public EdgeCollider2D rightColl;
+    //public EdgeCollider2D leftColl;
+    //public EdgeCollider2D rightColl;
     public AudioSource walkingAudio;
     public AudioSource jumpAudio;
     public AudioSource die;
+    public AudioSource coinAudio;
 
     public GameObject[] hearts;
     public static int livesLeft;
@@ -130,6 +131,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("Coin"))
+        {
+            coinAudio.Play();
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D coll)
     {
         //Debug.Log("In collision enter method");
@@ -171,6 +180,7 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("InitialsEntered");
         SceneManager.LoadScene("GameScene");
     }
+
     /*
         flip() flips the isFacingRight boolean, then negates the player's x transform
     */

@@ -23,7 +23,7 @@ public class FallTrigger : MonoBehaviour {
             PlayerPrefs.DeleteKey("Time");
             PlayerPrefs.DeleteKey("totalScore");
             PlayerPrefs.DeleteKey("InitialsEntered");
-            SceneManager.LoadScene("Demo3_GameScene");
+            SceneManager.LoadScene("GameScene");
         }
     }
 }

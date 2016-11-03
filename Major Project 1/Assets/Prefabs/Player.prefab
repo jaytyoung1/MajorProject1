@@ -183,7 +183,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7f2cddaa139e15c4ab86d1d5ee3d3448, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   isGrounded: 0
   areArrowsEnabled: 1
   maxSpeed: 2
-  jumpForce: 675
+  jumpForce: 650
   groundLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -370,6 +370,11 @@ MonoBehaviour:
   walkingAudio: {fileID: 8277204}
   jumpAudio: {fileID: 82000013106236686}
   die: {fileID: 8292892}
+  lives:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  totalLives: 3
 --- !u!114 &11430054
 MonoBehaviour:
   m_ObjectHideFlags: 1

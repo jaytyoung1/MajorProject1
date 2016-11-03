@@ -29,7 +29,9 @@ public class PlayerManager : MonoBehaviour
     public AudioSource walkingAudio;
     public AudioSource jumpAudio;
     public AudioSource die;
-    //public AudioSource coinAudio;
+
+    public GameObject[] hearts;
+    public static int livesLeft;
 
     private float groundCheckRadius = 0.7f;
     private float delay = 1.0f;
@@ -41,6 +43,7 @@ public class PlayerManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        livesLeft = 3;
         //get Animator and RigidBody2D from Player
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -55,6 +58,8 @@ public class PlayerManager : MonoBehaviour
         rb2d.velocity = new Vector2(0, 0);
 
         PlayerPrefs.SetInt("Coins", 0);
+
+        //updateLives(livesLeft);
     }
 
     void FixedUpdate()
@@ -78,13 +83,13 @@ public class PlayerManager : MonoBehaviour
 
         if ((move > 0.0f && !isFacingRight) || (move < 0.0f && isFacingRight))
             flip();
-
-
     }
 
     // Update is called once per frame
     void Update ()
     {
+        Debug.Log("hearts left: " + livesLeft);
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
                 anim.SetInteger("State", 2);  //NOTE: have to imclude this even tho we set State = 2 in FixedUpdate()
@@ -96,14 +101,32 @@ public class PlayerManager : MonoBehaviour
         */
         if (Input.GetKey(KeyCode.Escape))
         {
-            //PlayerPrefs.DeleteAll();
             PlayerPrefs.DeleteKey("Coins");
             //PlayerPrefs.DeleteKey("Time");
             PlayerPrefs.SetInt("Time", 0);
             PlayerPrefs.DeleteKey("totalScore");
             PlayerPrefs.DeleteKey("InitialsEntered");
             SceneManager.LoadScene("WelcomeScene");
-            //goToFinalScoreScene();
+        }
+    }
+
+    void updateLives(int lives)
+    {
+        switch (lives)
+        {
+            case 3:
+                hearts[lives - 1].gameObject.SetActive(false);
+                Invoke("restartScene", delay);
+                livesLeft--;
+                break;
+            case 2:
+                hearts[lives - 1].gameObject.SetActive(false);
+                Invoke("restartScene", delay);
+                livesLeft--;
+                break;
+            case 1:
+
+                break;
         }
     }
 
@@ -123,7 +146,14 @@ public class PlayerManager : MonoBehaviour
             rb2d.velocity = new Vector2(0, 0);
             anim.SetInteger("State", 3);
             playDieAudio();
-            Invoke("restartScene", delay);
+            if (livesLeft > 0)
+            {
+                //lives[livesLeft - 1].gameObject.SetActive(false);
+                //Destroy(lives[livesLeft - 1]);
+                //Invoke("restartScene", delay);
+                //livesLeft--;
+                updateLives(livesLeft);
+            }
         }
     }
 
@@ -139,7 +169,7 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Time");
         PlayerPrefs.DeleteKey("totalScore");
         PlayerPrefs.DeleteKey("InitialsEntered");
-        SceneManager.LoadScene("Demo3_GameScene");
+        SceneManager.LoadScene("GameScene");
     }
     /*
         flip() flips the isFacingRight boolean, then negates the player's x transform

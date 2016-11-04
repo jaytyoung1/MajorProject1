@@ -2,7 +2,9 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class FallTrigger : MonoBehaviour {
+public class FallTrigger : MonoBehaviour
+{
+    public PlayerManager playerMg;
 
 	// Use this for initialization
 	void Start () {
@@ -19,11 +21,12 @@ public class FallTrigger : MonoBehaviour {
         if (coll.gameObject.CompareTag("Player"))
         {
             //PlayerPrefs.DeleteAll();
-            PlayerPrefs.DeleteKey("Coins");
-            PlayerPrefs.DeleteKey("Time");
-            PlayerPrefs.DeleteKey("totalScore");
-            PlayerPrefs.DeleteKey("InitialsEntered");
-            SceneManager.LoadScene("GameScene");
+            //PlayerPrefs.DeleteKey("Coins");
+            //PlayerPrefs.DeleteKey("Time");
+            //PlayerPrefs.DeleteKey("totalScore");
+            //PlayerPrefs.DeleteKey("InitialsEntered");
+            //SceneManager.LoadScene("GameScene");
+            playerMg.updateLives(PlayerPrefs.GetInt("Lives"));
         }
     }
 }

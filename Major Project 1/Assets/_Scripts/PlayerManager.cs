@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class PlayerManager : MonoBehaviour
     //Player's jump force
     public float jumpForce = 675.0f;
 
+    public Transform startPosition;
+
     public LayerMask groundLayers;
     public GameObject groundCheck;
     //public EdgeCollider2D leftColl;
@@ -32,18 +35,25 @@ public class PlayerManager : MonoBehaviour
     public AudioSource coinAudio;
 
     public GameObject[] hearts;
-    public static int totalLives = 3;
+    public int startingLives;
+    private int lifeCounter;
 
     private float groundCheckRadius = 0.7f;
     private float delay = 1.0f;
 
     Animator anim;
     Rigidbody2D rb2d;
+
+    public EnemyManager enemyMg;
     //CircleCollider2D coll;
 
     // Use this for initialization
     void Start ()
     {
+        lifeCounter = startingLives;
+        PlayerPrefs.SetInt("Lives", lifeCounter);
+        //updateLives(lifeCounter);
+
         isFacingRight = true;
         //get Animator and RigidBody2D from Player
         anim = GetComponent<Animator>();
@@ -112,28 +122,29 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    void updateLives(int lives)
+    public void updateLives(int lives)
     {
-        int decLives = lives;
+        //int decLives = lives;
         switch (lives)
         {
             case 3:
                 hearts[lives - 1].gameObject.SetActive(false);
-                decLives = lives - 1;
-                PlayerPrefs.SetInt("Lives", decLives);
-                Invoke("restartScene", delay);
-                //livesLeft--;
+                lifeCounter--;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
+                Invoke("deathRestart", delay);
+                //Invoke("restartScene", delay);
                 break;
             case 2:
-                decLives = lives - 1;
-                PlayerPrefs.SetInt("Lives", decLives);
-                Invoke("restartScene", delay);
-                //livesLeft--;
+                hearts[lives - 1].gameObject.SetActive(false);
+                lifeCounter--;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
+                Invoke("deathRestart", delay);
+                //Invoke("restartScene", delay);
                 break;
             case 1:
                 hearts[lives - 1].gameObject.SetActive(false);
-                decLives = lives - 1;
-                PlayerPrefs.SetInt("Lives", decLives);
+                lifeCounter--;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
                 Invoke("goToFinalScoreScene", delay);
                 break;
         }
@@ -147,36 +158,42 @@ public class PlayerManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        //Debug.Log("In collision enter method");
-        if (coll.gameObject.CompareTag("Skeleton"))
-        {
-            //anim.SetInteger("State", 3);
-            //playDieAudio();
-            Invoke("goToFinalScoreScene", delay);
-        }
+        if (coll.gameObject.CompareTag("Skeleton"))      
+            Invoke("goToFinalScoreScene", delay);      
 
         if (coll.gameObject.CompareTag("Enemy"))
         {
+            anim.SetInteger("State", 3);
             areArrowsEnabled = false;
             rb2d.velocity = new Vector2(0, 0);
-            anim.SetInteger("State", 3);
             playDieAudio();
-            int livesLeft = PlayerPrefs.GetInt("Lives");
-            if (livesLeft > 1)
-            {
-                //lives[livesLeft - 1].gameObject.SetActive(false);
-                //Destroy(lives[livesLeft - 1]);
-                //Invoke("restartScene", delay);
-                //livesLeft--;
-                updateLives(livesLeft);
-                //Invoke("restartScene", delay);
-            }
-            else if (livesLeft == 1)
-            {
-                updateLives(livesLeft);
-                //Invoke("goToFinalScoreScene", delay);
-            }
+            updateLives(PlayerPrefs.GetInt("Lives"));
+            //Invoke("deathRestart", delay);
+
+            //int livesLeft = PlayerPrefs.GetInt("Lives");
+            //if (livesLeft > 1)
+            //{
+            //    //lives[livesLeft - 1].gameObject.SetActive(false);
+            //    //Destroy(lives[livesLeft - 1]);
+            //    //Invoke("restartScene", delay);
+            //    //livesLeft--;
+            //    updateLives(livesLeft);
+            //    //Invoke("restartScene", delay);
+            //}
+            //else if (livesLeft == 1)
+            //{
+            //    updateLives(livesLeft);
+            //    //Invoke("goToFinalScoreScene", delay);
+            //}
         }
+    }
+
+    void deathRestart()
+    {
+        transform.position = startPosition.position;
+        anim.SetInteger("State", 0);
+        areArrowsEnabled = true;
+        enemyMg.attacking = false;
     }
 
     void goToFinalScoreScene()
@@ -191,6 +208,7 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Time");
         PlayerPrefs.DeleteKey("totalScore");
         PlayerPrefs.DeleteKey("InitialsEntered");
+        PlayerPrefs.DeleteKey("Lives");
         SceneManager.LoadScene("GameScene");
     }
 

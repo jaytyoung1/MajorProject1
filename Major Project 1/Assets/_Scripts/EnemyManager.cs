@@ -33,7 +33,7 @@ public class EnemyManager : MonoBehaviour
     void Start ()
     {
         enemyAnimators = GetComponentsInChildren<Animator>();
-        //enemyRigidBodys= GetComponentsInChildren<Rigidbody2D>();
+        enemyRigidBodys= GetComponentsInChildren<Rigidbody2D>();
 
         foreach (Animator anim in enemyAnimators)     
             anim.SetInteger("EnemyState", 1);
@@ -41,11 +41,17 @@ public class EnemyManager : MonoBehaviour
 	
     void FixedUpdate()
     {
-        if (attacking)
+        //if (attacking)
+        //{
+        //    //Debug.Log("Attacking");
+        //    foreach (Animator anim in enemyAnimators)
+        //        anim.SetInteger("EnemyState", 2);
+        //}
+
+        if (!attacking)
         {
-            Debug.Log("Attacking");
             foreach (Animator anim in enemyAnimators)
-                anim.SetInteger("EnemyState", 2);
+                anim.SetInteger("EnemyState", 1);
         }
         //isGrounded = Physics2D.OverlapCircle(enemyGroundCheck.transform.position, groundCheckRadius, groundLayers);
         //if (isGrounded)
@@ -70,17 +76,6 @@ public class EnemyManager : MonoBehaviour
             transform.Translate(movement);
     }
 
-    //void OnCollisionEnter2D(Collision2D coll)
-    //{
-    //    if (coll.gameObject.CompareTag("Player"))
-    //    {
-    //        attacking = true;
-    //        //transform.Translate(0, 0, 0);
-    //        //foreach (Animator anim in enemyAnimators)
-    //        //    anim.SetInteger("EnemyState", 2);
-    //    }
-    //}
-
     public void attack()
     {
         Debug.Log("attacking");
@@ -89,7 +84,9 @@ public class EnemyManager : MonoBehaviour
             anim.SetInteger("EnemyState", 2);
         foreach (Rigidbody2D rb2d in enemyRigidBodys)
             rb2d.velocity = new Vector2(0, 0);
+        //attacking = false;
     }
+
     /*
        flip() flips the isFacingRight boolean, then negates the player's x transform
    */

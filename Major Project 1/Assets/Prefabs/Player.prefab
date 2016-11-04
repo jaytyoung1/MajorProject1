@@ -362,6 +362,7 @@ MonoBehaviour:
   areArrowsEnabled: 1
   maxSpeed: 2
   jumpForce: 650
+  startPosition: {fileID: 0}
   groundLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -374,6 +375,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  startingLives: 3
 --- !u!114 &11430054
 MonoBehaviour:
   m_ObjectHideFlags: 1

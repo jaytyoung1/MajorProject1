@@ -161,8 +161,11 @@ public class PlayerManager : MonoBehaviour
         if (coll.gameObject.CompareTag("Skeleton"))      
             Invoke("goToFinalScoreScene", delay);      
 
-        if (coll.gameObject.CompareTag("Enemy"))
+        //if (coll.gameObject.CompareTag("enemyBoxColl"))
+        //if (coll.gameObject.name == "enemyBoxCollider")
+        if (coll.gameObject.CompareTag("Enemy") && isGrounded)
         {
+            Debug.Log("player collided with enemy");
             anim.SetInteger("State", 3);
             areArrowsEnabled = false;
             rb2d.velocity = new Vector2(0, 0);
@@ -235,7 +238,7 @@ public class PlayerManager : MonoBehaviour
         rb2d.velocity = new Vector2(move * maxSpeed, rb2d.velocity.y);
     }
 
-    void jump()
+    public void jump()
     {
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
         rb2d.AddForce(new Vector2(0, jumpForce));

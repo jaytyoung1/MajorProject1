@@ -8,6 +8,8 @@ TagManager:
   - BackgroundMusic
   - Skeleton
   - Coin
+  - enemyBoxColl
+  - enemyDeathColl
   layers:
   - Default
   - TransparentFX

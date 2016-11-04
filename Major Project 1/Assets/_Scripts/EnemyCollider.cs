@@ -7,6 +7,7 @@ public class EnemyCollider : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
+        Debug.Log("enemy collided with player");
         if (coll.gameObject.CompareTag("Player"))    
             enemyMang.attack();
     }

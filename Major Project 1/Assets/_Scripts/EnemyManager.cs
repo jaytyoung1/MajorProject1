@@ -50,8 +50,8 @@ public class EnemyManager : MonoBehaviour
 
         if (!attacking)
         {
-            foreach (Animator anim in enemyAnimators)
-                anim.SetInteger("EnemyState", 1);
+            foreach (Animator animator in enemyAnimators)
+                animator.SetInteger("EnemyState", 1);
         }
         //isGrounded = Physics2D.OverlapCircle(enemyGroundCheck.transform.position, groundCheckRadius, groundLayers);
         //if (isGrounded)

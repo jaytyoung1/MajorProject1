@@ -23,7 +23,7 @@ GameObject:
   - 114: {fileID: 114000010904786036}
   m_Layer: 0
   m_Name: enemyBoxCollider
-  m_TagString: Untagged
+  m_TagString: enemyBoxColl
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,6 +42,23 @@ GameObject:
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000012292024226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012358296082}
+  - 68: {fileID: 68000012492115312}
+  - 114: {fileID: 114000013890270482}
+  m_Layer: 10
+  m_Name: enemyDeathCollider
+  m_TagString: enemyDeathColl
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +105,7 @@ Transform:
   m_Children:
   - {fileID: 4000011562490368}
   - {fileID: 4000010088192646}
+  - {fileID: 4000012358296082}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000011562490368
@@ -103,6 +121,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011049004706}
   m_RootOrder: 0
+--- !u!4 &4000012358296082
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012292024226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011049004706}
+  m_RootOrder: 2
 --- !u!50 &50000010806872970
 Rigidbody2D:
   serializedVersion: 2
@@ -148,6 +179,21 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -0.4}
   serializedVersion: 2
   m_Size: {x: 1.8, y: 3.6}
+--- !u!68 &68000012492115312
+EdgeCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012292024226}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.7, y: 2}
+  m_Points:
+  - {x: -1.5772223, y: -0.00000047683716}
+  - {x: 0.5, y: 0}
 --- !u!95 &95000012803962376
 Animator:
   serializedVersion: 3
@@ -177,6 +223,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMang: {fileID: 0}
+--- !u!114 &114000013890270482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012292024226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f5e59243a55a445aa4a65514c97462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMg: {fileID: 0}
+  enemy: {fileID: 1000011368670876}
+  enemyAnim: {fileID: 95000012803962376}
 --- !u!212 &212000013326462340
 SpriteRenderer:
   m_ObjectHideFlags: 1

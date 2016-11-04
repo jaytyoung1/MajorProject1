@@ -216,6 +216,9 @@ MonoBehaviour:
   - {fileID: 1000010943562030}
   - {fileID: 1000013291261812}
   - {fileID: 1000013542854796}
+  - {fileID: 1000014140548872}
+  - {fileID: 1000013206401722}
+  - {fileID: 1000010605937404}
   startingLives: 3
 --- !u!212 &212000011292751062
 SpriteRenderer:

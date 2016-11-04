@@ -13,6 +13,11 @@ public class HealthManager : MonoBehaviour
     {
         lifeCounter = startingLives;
         PlayerPrefs.SetInt("Lives", lifeCounter);
+
+        for (int i = lifeCounter; i < hearts.Length; i++)
+        {
+            hearts[i].SetActive(false);
+        }
     }
 	
 	// Update is called once per frame
@@ -24,25 +29,38 @@ public class HealthManager : MonoBehaviour
     {
         switch (lives)
         {
+            case 6:
+                break;
+            case 5:
+                hearts[lives].SetActive(true);
+                lifeCounter++;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
+                // Invoke("deathRestart", delay);
+                //Invoke("restartScene", delay);
+                break;
+            case 4:
+                hearts[lives].SetActive(true);
+                lifeCounter++;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
+                // Invoke("deathRestart", delay);
+                //Invoke("restartScene", delay);
+                break;
             case 3:
-                //hearts[lives - 1].gameObject.SetActive(false);
-                Vector2 newHeartPosition = hearts[0].transform.position;
-                newHeartPosition.y = newHeartPosition.y - 75.0f;
-                //Instantiate(hearts[0], newHeartPosition, Quaternion.identity);
+                hearts[lives].SetActive(true);
                 lifeCounter++;
                 PlayerPrefs.SetInt("Lives", lifeCounter);
                // Invoke("deathRestart", delay);
                 //Invoke("restartScene", delay);
                 break;
             case 2:
-                hearts[lives - 1].gameObject.SetActive(false);
+                hearts[lives].SetActive(true);
                 lifeCounter++;
                 PlayerPrefs.SetInt("Lives", lifeCounter);
                 //Invoke("deathRestart", delay);
                 //Invoke("restartScene", delay);
                 break;
             case 1:
-                hearts[lives - 1].gameObject.SetActive(false);
+                hearts[lives].SetActive(true);
                 lifeCounter++;
                 PlayerPrefs.SetInt("Lives", lifeCounter);
                 //Invoke("goToFinalScoreScene", delay);
@@ -55,6 +73,27 @@ public class HealthManager : MonoBehaviour
         //int decLives = lives;
         switch (lives)
         {
+            case 6:
+                hearts[lives - 1].gameObject.SetActive(false);
+                lifeCounter--;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
+                //Invoke("deathRestart", delay);
+                //Invoke("restartScene", delay);
+                break;
+            case 5:
+                hearts[lives - 1].gameObject.SetActive(false);
+                lifeCounter--;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
+                //Invoke("deathRestart", delay);
+                //Invoke("restartScene", delay);
+                break;
+            case 4:
+                hearts[lives - 1].gameObject.SetActive(false);
+                lifeCounter--;
+                PlayerPrefs.SetInt("Lives", lifeCounter);
+                //Invoke("deathRestart", delay);
+                //Invoke("restartScene", delay);
+                break;
             case 3:
                 hearts[lives - 1].gameObject.SetActive(false);
                 lifeCounter--;

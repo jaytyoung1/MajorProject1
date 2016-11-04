@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMg: {fileID: 0}
+  healthMg: {fileID: 0}
   enemy: {fileID: 1000011368670876}
   enemyAnim: {fileID: 95000012803962376}
 --- !u!212 &212000013326462340

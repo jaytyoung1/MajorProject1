@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyDeath : MonoBehaviour
 {
     public PlayerManager playerMg;
+    public HealthManager healthMg;
     public GameObject enemy;
     public Animator enemyAnim;
     private float delay = 1.0f;
@@ -25,7 +26,11 @@ public class EnemyDeath : MonoBehaviour
         {
             Debug.Log("enemy collided with player");
             enemyAnim.SetInteger("EnemyState", 3);
+            healthMg.increaseLives(PlayerPrefs.GetInt("Lives"));
+
             playerMg.jump();
+
+
             EdgeCollider2D edgeColl = gameObject.GetComponent<EdgeCollider2D>();
             edgeColl.enabled = false;
            // BoxCollider2D boxColl = gameObject.GetComponent<BoxCollider2D>();

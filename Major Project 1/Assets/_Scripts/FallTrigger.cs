@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class FallTrigger : MonoBehaviour
 {
+    public HealthManager healthMg;
     public PlayerManager playerMg;
 
 	// Use this for initialization
@@ -20,13 +21,15 @@ public class FallTrigger : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("Player"))
         {
+            Debug.Log("player collided with the fall break");
             //PlayerPrefs.DeleteAll();
             //PlayerPrefs.DeleteKey("Coins");
             //PlayerPrefs.DeleteKey("Time");
             //PlayerPrefs.DeleteKey("totalScore");
             //PlayerPrefs.DeleteKey("InitialsEntered");
             //SceneManager.LoadScene("GameScene");
-            playerMg.updateLives(PlayerPrefs.GetInt("Lives"));
+            healthMg.decreaseLives(PlayerPrefs.GetInt("Lives"));
+            playerMg.deathRestart();
         }
     }
 }

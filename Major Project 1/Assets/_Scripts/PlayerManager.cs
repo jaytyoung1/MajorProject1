@@ -34,9 +34,7 @@ public class PlayerManager : MonoBehaviour
     public AudioSource die;
     public AudioSource coinAudio;
 
-    public GameObject[] hearts;
-    public int startingLives;
-    private int lifeCounter;
+   
 
     private float groundCheckRadius = 0.7f;
     private float delay = 1.0f;
@@ -45,15 +43,12 @@ public class PlayerManager : MonoBehaviour
     Rigidbody2D rb2d;
 
     public EnemyManager enemyMg;
+    public HealthManager healthMg;
     //CircleCollider2D coll;
 
     // Use this for initialization
     void Start ()
     {
-        lifeCounter = startingLives;
-        PlayerPrefs.SetInt("Lives", lifeCounter);
-        //updateLives(lifeCounter);
-
         isFacingRight = true;
         //get Animator and RigidBody2D from Player
         anim = GetComponent<Animator>();
@@ -122,33 +117,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void updateLives(int lives)
-    {
-        //int decLives = lives;
-        switch (lives)
-        {
-            case 3:
-                hearts[lives - 1].gameObject.SetActive(false);
-                lifeCounter--;
-                PlayerPrefs.SetInt("Lives", lifeCounter);
-                Invoke("deathRestart", delay);
-                //Invoke("restartScene", delay);
-                break;
-            case 2:
-                hearts[lives - 1].gameObject.SetActive(false);
-                lifeCounter--;
-                PlayerPrefs.SetInt("Lives", lifeCounter);
-                Invoke("deathRestart", delay);
-                //Invoke("restartScene", delay);
-                break;
-            case 1:
-                hearts[lives - 1].gameObject.SetActive(false);
-                lifeCounter--;
-                PlayerPrefs.SetInt("Lives", lifeCounter);
-                Invoke("goToFinalScoreScene", delay);
-                break;
-        }
-    }
+   
 
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -170,7 +139,12 @@ public class PlayerManager : MonoBehaviour
             areArrowsEnabled = false;
             rb2d.velocity = new Vector2(0, 0);
             playDieAudio();
-            updateLives(PlayerPrefs.GetInt("Lives"));
+            healthMg.decreaseLives(PlayerPrefs.GetInt("Lives"));
+            if (PlayerPrefs.GetInt("Lives") > 0)
+                Invoke("deathRestart", delay);
+            else
+                Invoke("goToFinalScoreScene", delay);
+
             //Invoke("deathRestart", delay);
 
             //int livesLeft = PlayerPrefs.GetInt("Lives");
@@ -191,7 +165,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    void deathRestart()
+    public void deathRestart()
     {
         transform.position = startPosition.position;
         anim.SetInteger("State", 0);

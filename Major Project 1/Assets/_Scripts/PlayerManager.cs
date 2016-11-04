@@ -33,8 +33,7 @@ public class PlayerManager : MonoBehaviour
     public AudioSource jumpAudio;
     public AudioSource die;
     public AudioSource coinAudio;
-
-   
+    public AudioSource levelWinAudio;
 
     private float groundCheckRadius = 0.7f;
     private float delay = 1.0f;
@@ -127,8 +126,12 @@ public class PlayerManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.CompareTag("Skeleton"))      
-            Invoke("goToFinalScoreScene", delay);      
+        if (coll.gameObject.CompareTag("Skeleton"))
+        {
+            levelWinAudio.Play();
+            coll.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            Invoke("goToFinalScoreScene", delay * 3);
+        }
 
         //if (coll.gameObject.CompareTag("enemyBoxColl"))
         //if (coll.gameObject.name == "enemyBoxCollider")

@@ -12,7 +12,7 @@ public class SkeletonCollider : MonoBehaviour
     //skeleton's rigidbody
     Rigidbody2D rb2d;
 
-    private float velo = 6.0f;
+    private float velo = 10.0f;
     //private float delay = 1.0f;
 
     // Use this for initialization

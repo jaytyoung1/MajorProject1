@@ -18,8 +18,7 @@ public class EnemyDeath : MonoBehaviour
     void Start ()
     {
         //anim = GetComponentInParent<Animator>();
-        newPosition = gameObject.transform.position;
-        newPosition.y = newPosition.y + 2;
+        
 	}
 	
 	// Update is called once per frame
@@ -27,8 +26,14 @@ public class EnemyDeath : MonoBehaviour
     {
 	    if (isEnemyDead)
         {
-            Instantiate(newCoin, newPosition, Quaternion.identity);
-            newCoin.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 100.0f));
+            newPosition = gameObject.transform.position;
+            newPosition.y = newPosition.y + 2;
+            GameObject spawnedCoin = Instantiate(newCoin, newPosition, Quaternion.identity) as GameObject;
+            spawnedCoin.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 60.0f));
+
+            //Rigidbody2D rb2d = newCoin.GetComponent<Rigidbody2D>();
+            //rb2d.AddForce(new Vector2(0, 675.0f));
+            //newCoin.GetComponent<Rigidbody2D>().AddForce(new Vector2(-10, 675.0f));
             isEnemyDead = false;
         }
 	}

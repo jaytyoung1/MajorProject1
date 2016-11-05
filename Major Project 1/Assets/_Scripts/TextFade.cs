@@ -12,12 +12,6 @@ public class TextFade : MonoBehaviour
         StartCoroutine("Fade");
 	}
 	
-	// Update is called once per frame
-	void Update ()
-    {
-	
-	}
-
     IEnumerator Fade()
     {
         for (float f = 3f; f >= 0; f -= 0.01f)

@@ -130,7 +130,8 @@ public class PlayerManager : MonoBehaviour
         {
             levelWinAudio.Play();
             coll.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            Invoke("goToFinalScoreScene", delay * 3);
+            //Invoke("goToFinalScoreScene", delay * 3);     
+            StartCoroutine(goToFinalScoreSceneCo());
         }
 
         //if (coll.gameObject.CompareTag("enemyBoxColl"))
@@ -144,27 +145,11 @@ public class PlayerManager : MonoBehaviour
             playDieAudio();
             healthMg.decreaseLives(PlayerPrefs.GetInt("Lives"));
             if (PlayerPrefs.GetInt("Lives") > 0)
-                Invoke("deathRestart", delay);
+                //Invoke("deathRestart", delay);
+                StartCoroutine(deathRestartCo());
             else
-                Invoke("goToFinalScoreScene", delay);
-
-            //Invoke("deathRestart", delay);
-
-            //int livesLeft = PlayerPrefs.GetInt("Lives");
-            //if (livesLeft > 1)
-            //{
-            //    //lives[livesLeft - 1].gameObject.SetActive(false);
-            //    //Destroy(lives[livesLeft - 1]);
-            //    //Invoke("restartScene", delay);
-            //    //livesLeft--;
-            //    updateLives(livesLeft);
-            //    //Invoke("restartScene", delay);
-            //}
-            //else if (livesLeft == 1)
-            //{
-            //    updateLives(livesLeft);
-            //    //Invoke("goToFinalScoreScene", delay);
-            //}
+                //Invoke("goToFinalScoreScene", delay);
+                StartCoroutine(goToFinalScoreSceneCo());
         }
     }
 
@@ -176,8 +161,23 @@ public class PlayerManager : MonoBehaviour
         enemyMg.attacking = false;
     }
 
-    void goToFinalScoreScene()
+    IEnumerator deathRestartCo()
     {
+        yield return new WaitForSecondsRealtime(1);
+        transform.position = startPosition.position;
+        anim.SetInteger("State", 0);
+        areArrowsEnabled = true;
+        enemyMg.attacking = false;
+    }
+
+    //void goToFinalScoreScene()
+    //{
+    //    SceneManager.LoadScene("DisplayFinalScoreScene");
+    //}
+
+    IEnumerator goToFinalScoreSceneCo()
+    {
+        yield return new WaitForSecondsRealtime(3);
         SceneManager.LoadScene("DisplayFinalScoreScene");
     }
 
@@ -219,6 +219,14 @@ public class PlayerManager : MonoBehaviour
     {
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
         rb2d.AddForce(new Vector2(0, jumpForce));
+        playJumpAudio();
+    }
+
+    public void killEnemy()
+    {
+    
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+        rb2d.AddForce(new Vector2(0, (jumpForce/2) + 100));
         playJumpAudio();
     }
 

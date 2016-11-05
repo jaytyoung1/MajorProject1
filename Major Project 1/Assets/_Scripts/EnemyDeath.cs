@@ -28,20 +28,31 @@ public class EnemyDeath : MonoBehaviour
             enemyAnim.SetInteger("EnemyState", 3);
             healthMg.increaseLives(PlayerPrefs.GetInt("Lives"));
 
-            playerMg.jump();
+            //playerMg.jump();
+            playerMg.killEnemy();
 
 
             EdgeCollider2D edgeColl = gameObject.GetComponent<EdgeCollider2D>();
             edgeColl.enabled = false;
-           // BoxCollider2D boxColl = gameObject.GetComponent<BoxCollider2D>();
+            // BoxCollider2D boxColl = gameObject.GetComponent<BoxCollider2D>();
             //boxColl.enabled = false;
-            Invoke("destroyEnemy", delay);
+
+            //Invoke("destroyEnemy", delay);
+            StartCoroutine(destroyEnemyCo());
         }
     }
 
     void destroyEnemy()
     {
         //Destroy(gameObject);
+        enemy.gameObject.SetActive(false);
+    }
+
+    //void destroyEnemy()
+    IEnumerator destroyEnemyCo()
+    {
+        //Destroy(gameObject);
+        yield return new WaitForSecondsRealtime(1);
         enemy.gameObject.SetActive(false);
     }
 }

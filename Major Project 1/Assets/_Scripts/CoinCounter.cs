@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class CoinCounter : MonoBehaviour
 {
     public Text scoreTextBox;
-    private static int coinCount;
+
+    [HideInInspector]
+    public static int coinCount;
 
     //public AudioSource coinAudio;
 
@@ -22,7 +24,7 @@ public class CoinCounter : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-      
+        scoreTextBox.text = "" + PlayerPrefs.GetInt("Coins");
     }
 
     void OnTriggerEnter2D(Collider2D other)

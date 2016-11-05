@@ -34,6 +34,9 @@ public class PlayerManager : MonoBehaviour
     public AudioSource die;
     public AudioSource coinAudio;
     public AudioSource levelWinAudio;
+    public AudioSource coinSpawnAudio;
+
+    public Text scoreTextBox;
 
     private float groundCheckRadius = 0.7f;
     private float delay = 1.0f;
@@ -43,6 +46,7 @@ public class PlayerManager : MonoBehaviour
 
     public EnemyManager enemyMg;
     public HealthManager healthMg;
+    //public CoinCounter coinMg;
     //CircleCollider2D coll;
 
     // Use this for initialization
@@ -126,6 +130,16 @@ public class PlayerManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
+        if (coll.gameObject.CompareTag("Coin"))
+        {
+            coinAudio.Play();
+            Debug.Log("player collided with spawned coin");
+            Destroy(coll.gameObject);
+            CoinCounter.coinCount += 1;
+            PlayerPrefs.SetInt("Coins", CoinCounter.coinCount);
+            scoreTextBox.text = "" + PlayerPrefs.GetInt("Coins");
+        }
+
         if (coll.gameObject.CompareTag("Skeleton"))
         {
             levelWinAudio.Play();
@@ -227,7 +241,8 @@ public class PlayerManager : MonoBehaviour
     
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
         rb2d.AddForce(new Vector2(0, (jumpForce/2) + 100));
-        playJumpAudio();
+        //playJumpAudio();
+        coinSpawnAudio.Play();
     }
 
     /*

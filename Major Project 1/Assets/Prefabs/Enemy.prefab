@@ -238,6 +238,7 @@ MonoBehaviour:
   healthMg: {fileID: 0}
   enemy: {fileID: 1000011368670876}
   enemyAnim: {fileID: 95000012803962376}
+  newCoin: {fileID: 1000011281497496, guid: 215b8d5454116744f87724731dc13871, type: 2}
 --- !u!212 &212000013326462340
 SpriteRenderer:
   m_ObjectHideFlags: 1

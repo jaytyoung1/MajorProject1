@@ -254,7 +254,8 @@ public class PlayerManager : MonoBehaviour
         if (anim.GetInteger("State") == 3)
         {
             walkingAudio.Stop();
-            die.Play();
+            if (!die.isPlaying)
+                die.Play();
         }
     }
 }

@@ -13067,6 +13067,11 @@ Prefab:
       propertyPath: healthMg
       value: 
       objectReference: {fileID: 1350342515}
+    - target: {fileID: 82000014217999898, guid: 7746948b20f185449a414821dc1cd1f2,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7746948b20f185449a414821dc1cd1f2, type: 2}
   m_IsPrefabParent: 0

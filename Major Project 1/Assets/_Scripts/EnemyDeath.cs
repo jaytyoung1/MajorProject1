@@ -29,7 +29,7 @@ public class EnemyDeath : MonoBehaviour
             newPosition = gameObject.transform.position;
             newPosition.y = newPosition.y + 2;
             GameObject spawnedCoin = Instantiate(newCoin, newPosition, Quaternion.identity) as GameObject;
-            spawnedCoin.GetComponent<Rigidbody2D>().AddForce(new Vector2((Random.Range(-50, 50)), 60.0f));
+            spawnedCoin.GetComponent<Rigidbody2D>().AddForce(new Vector2((Random.Range(-40, 40)), 60.0f));
 
             //Rigidbody2D rb2d = newCoin.GetComponent<Rigidbody2D>();
             //rb2d.AddForce(new Vector2(0, 675.0f));

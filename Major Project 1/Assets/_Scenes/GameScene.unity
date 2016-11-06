@@ -862,6 +862,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011368670876, guid: df72b74edd529a64b971cb0a76146f10, type: 2}
+      propertyPath: m_Name
+      value: Enemy1
+      objectReference: {fileID: 0}
     - target: {fileID: 114000010904786036, guid: df72b74edd529a64b971cb0a76146f10,
         type: 2}
       propertyPath: enemyMang
@@ -869,18 +873,14 @@ Prefab:
       objectReference: {fileID: 794102229}
     - target: {fileID: 114000013890270482, guid: df72b74edd529a64b971cb0a76146f10,
         type: 2}
-      propertyPath: playerMg
-      value: 
-      objectReference: {fileID: 389848329}
-    - target: {fileID: 114000013890270482, guid: df72b74edd529a64b971cb0a76146f10,
-        type: 2}
       propertyPath: healthMg
       value: 
       objectReference: {fileID: 1350342515}
-    - target: {fileID: 1000011368670876, guid: df72b74edd529a64b971cb0a76146f10, type: 2}
-      propertyPath: m_Name
-      value: Enemy1
-      objectReference: {fileID: 0}
+    - target: {fileID: 114000013890270482, guid: df72b74edd529a64b971cb0a76146f10,
+        type: 2}
+      propertyPath: playerMg
+      value: 
+      objectReference: {fileID: 389848329}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: df72b74edd529a64b971cb0a76146f10, type: 2}
   m_IsPrefabParent: 0

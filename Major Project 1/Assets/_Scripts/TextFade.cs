@@ -14,7 +14,7 @@ public class TextFade : MonoBehaviour
 	
     IEnumerator Fade()
     {
-        for (float f = 3f; f >= 0; f -= 0.01f)
+        for (float f = 3f; f >= 0; f -= 0.02f)
         {
             Color c = levelText.color;
             //Color c = renderer.material.color;

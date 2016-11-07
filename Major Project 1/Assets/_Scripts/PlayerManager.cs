@@ -145,7 +145,7 @@ public class PlayerManager : MonoBehaviour
             levelWinAudio.Play();
             coll.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             //Invoke("goToFinalScoreScene", delay * 3);     
-            StartCoroutine(goToFinalScoreSceneCo());
+            //StartCoroutine(goToFinalScoreSceneCo());
         }
 
         //if (coll.gameObject.CompareTag("enemyBoxColl"))

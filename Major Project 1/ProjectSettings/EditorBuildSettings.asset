@@ -12,6 +12,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/HowToPlayScene.unity
   - enabled: 1
+    path: Assets/_Scenes/Level 1.unity
+  - enabled: 1
     path: Assets/_Scenes/GameScene.unity
   - enabled: 0
     path: Assets/_Scenes/Demo3_GameScene.unity

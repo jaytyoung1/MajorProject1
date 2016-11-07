@@ -12,6 +12,8 @@ public class SkeletonCollider : MonoBehaviour
     //skeleton's rigidbody
     Rigidbody2D rb2d;
 
+    public string sceneToLoad;
+
     private float velo = 10.0f;
     //private float delay = 1.0f;
 
@@ -31,6 +33,15 @@ public class SkeletonCollider : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.CompareTag("Player"))
+        {
             rb2d.velocity = new Vector2(0, velo);
+            StartCoroutine(loadNextScene());
+        }
+    }
+
+    IEnumerator loadNextScene()
+    {
+        yield return new WaitForSecondsRealtime(3);
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
         //PlayerPrefs.SetInt("Time", 10);
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("Time", 0);
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void loadHowToPlayScene()

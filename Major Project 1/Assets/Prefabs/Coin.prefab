@@ -36,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010791813130}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.92, y: 1.2, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.27, y: 1.2, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -85,8 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c98160ef6b7cbf498c2a935f6b41983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreTextBox: {fileID: 114000011464008868, guid: c07920b9c3818a24dae95c17d5b301c6,
-    type: 2}
+  scoreTextBox: {fileID: 0}
 --- !u!212 &212000012370207172
 SpriteRenderer:
   m_ObjectHideFlags: 1

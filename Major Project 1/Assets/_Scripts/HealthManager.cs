@@ -6,7 +6,6 @@ public class HealthManager : MonoBehaviour
     public GameObject[] hearts;
     public int startingLives;
     private int lifeCounter;
-    private float delay = 1.0f;
 
     // Use this for initialization
     void Start ()

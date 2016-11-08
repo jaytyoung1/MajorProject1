@@ -7,7 +7,6 @@ public class EnemyDeath : MonoBehaviour
     public HealthManager healthMg;
     public GameObject enemy;
     public Animator enemyAnim;
-    //private float delay = 1.0f;
     private Vector3 newPosition;
 
     public GameObject newCoin;
@@ -17,7 +16,6 @@ public class EnemyDeath : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        //anim = GetComponentInParent<Animator>();
         
 	}
 	
@@ -26,6 +24,7 @@ public class EnemyDeath : MonoBehaviour
     {
 	    if (isEnemyDead)
         {
+            enemyAnim.SetInteger("EnemyState", 3);
             newPosition = gameObject.transform.position;
             newPosition.y = newPosition.y + 2;
             GameObject spawnedCoin = Instantiate(newCoin, newPosition, Quaternion.identity) as GameObject;
@@ -42,22 +41,20 @@ public class EnemyDeath : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("Player"))
         {
-            Debug.Log("enemy collided with player");
+            //enemy.GetComponent<BoxCollider2D>().enabled = false;
+            //boxColl.enabled = false;
             enemyAnim.SetInteger("EnemyState", 3);
             healthMg.increaseLives(PlayerPrefs.GetInt("Lives"));
 
-            //playerMg.jump();
             playerMg.killEnemy();
             isEnemyDead = true;
             
-
             EdgeCollider2D edgeColl = gameObject.GetComponent<EdgeCollider2D>();
             edgeColl.enabled = false;
 
             // BoxCollider2D boxColl = gameObject.GetComponent<BoxCollider2D>();
             //boxColl.enabled = false;
 
-            //Invoke("destroyEnemy", delay);
             StartCoroutine(destroyEnemyCo());
         }
     }
@@ -68,11 +65,10 @@ public class EnemyDeath : MonoBehaviour
         enemy.gameObject.SetActive(false);
     }
 
-    //void destroyEnemy()
     IEnumerator destroyEnemyCo()
     {
         //Destroy(gameObject);
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(0.5f);
         enemy.gameObject.SetActive(false);
     }
 }

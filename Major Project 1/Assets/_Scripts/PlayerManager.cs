@@ -39,7 +39,6 @@ public class PlayerManager : MonoBehaviour
     public Text scoreTextBox;
 
     private float groundCheckRadius = 0.7f;
-    private float delay = 1.0f;
 
     Animator anim;
     Rigidbody2D rb2d;

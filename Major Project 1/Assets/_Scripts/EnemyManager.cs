@@ -41,21 +41,11 @@ public class EnemyManager : MonoBehaviour
 	
     void FixedUpdate()
     {
-        //if (attacking)
-        //{
-        //    //Debug.Log("Attacking");
-        //    foreach (Animator anim in enemyAnimators)
-        //        anim.SetInteger("EnemyState", 2);
-        //}
-
         if (!attacking)
         {
             foreach (Animator animator in enemyAnimators)
                 animator.SetInteger("EnemyState", 1);
-        }
-        //isGrounded = Physics2D.OverlapCircle(enemyGroundCheck.transform.position, groundCheckRadius, groundLayers);
-        //if (isGrounded)
-        //    anim.SetInteger("EnemyState", 1);
+        }  
     }
 
     // Update is called once per frame
@@ -63,13 +53,13 @@ public class EnemyManager : MonoBehaviour
     {
         if (transform.position.x > rightLimit)
         {
-            flip();
             direction = -1;
+            flip();
         }
         else if (transform.position.x < leftLimit)
         {
-            flip();
             direction = 1;
+            flip();
         }
         movement = Vector3.right * direction * enemySpeed * Time.deltaTime;
         if (!attacking)
